@@ -117,7 +117,7 @@ const authController = {
                 data = new Users({
                     email: email,
                     name: name,
-                    idGoogleUser: true,
+                    isGoogleUser: true,
                     googleId: googleId
                 });
                 await data.save();
