@@ -34,7 +34,6 @@ const authController = {
             response.cookie('jwtToken', token, {
                 httpOnly: true,
                 secure: true,
-                domain: 'localhost',
                 path: '/'
             });
             response.json({ user: user, message: 'User authenticated' });
