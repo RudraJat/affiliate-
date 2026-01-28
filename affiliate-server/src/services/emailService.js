@@ -1,5 +1,6 @@
 const nodemailer= require("nodemailer");
 
+//transporter is like an delivery agent or post office
 const transporter = nodemailer.createTransport({
     service: "gmail",
     auth:{
