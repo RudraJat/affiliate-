@@ -1,7 +1,7 @@
 const {USER_ROLES}= require ("../constants/userConstants");
 const bcrypt = require('bcryptjs');
 const Users = require("../model/Users");
-const send = require("../service/emailService");
+const send = require("../services/emailService");
 
 const generateTemporaryPassword = ()=>{
     const chars = 'abcdefghijklmnopqrstuvwxyz123456789'

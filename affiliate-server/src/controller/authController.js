@@ -1,10 +1,10 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Users = require('../model/Users');
-const {OAuth2Client} = require("goole-auth-library");
+const {OAuth2Client} = require("google-auth-library");
 
-// https://www.uuidgenerator.net/
-const secret = "69f8825c-ae86-4a76-89d5-501a621e772e";
+
+const secret = process.env.JWT_SECRET;
 
 const authController = {
     login: async (request, response) => {
@@ -83,7 +83,8 @@ const authController = {
             const user = new Users({
                 email: username,
                 password: encryptedPassword,
-                name: name
+                name: name,
+                role:data.role?data.role:'admin'
             });
 
             await user.save();
@@ -108,7 +109,7 @@ const authController = {
                 audience: process.env.GOOGLE_CLIENT_ID
             });
 
-            const payload = googleClient.getPayload();
+            const payload = googleResponse.getPayload();
             const {sub:googleId, name, email}=payload;
 
             let data = await Users.findOne({email: email});
@@ -127,7 +128,8 @@ const authController = {
             const user={
                 id:data._id?data._id:googleId,
                 username:email,
-                name: name
+                name: name,
+                role: data.role? data.role:'admin' //this is the ensure backward compatibility
             };
 
             const token = jwt.sign(user, secret,{expiresIn: '1h'});
