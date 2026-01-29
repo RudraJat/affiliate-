@@ -27,7 +27,8 @@ const authController = {
             const user = {
                 id: data._id,
                 name: data.name,
-                email: data.email
+                email: data.email,
+                role: data.role?data.role:'admin'
             };
 
             const token = jwt.sign(user, secret, { expiresIn: '1h' });
@@ -117,7 +118,8 @@ const authController = {
                     email: email,
                     name: name,
                     isGoogleUser: true,
-                    googleId: googleId
+                    googleId: googleId,
+                    role:'admin'
                 });
                 await data.save();
             }
@@ -125,7 +127,7 @@ const authController = {
             const user={
                 id:data._id?data._id:googleId,
                 username:email,
-                email:name
+                name: name
             };
 
             const token = jwt.sign(user, secret,{expiresIn: '1h'});

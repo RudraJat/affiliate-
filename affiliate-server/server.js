@@ -4,6 +4,7 @@ const express = require('express'); // Include the express module
 const cookieParser = require('cookie-parser');
 const authRoutes = require('./src/routes/authRoutes');
 const cors = require('cors');
+const userRoutes = require('./src/routes/userRoutes');
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('MongoDB Connected'))
@@ -20,6 +21,8 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
+
 
 const PORT = 5001;
 app.listen(5001, (error) => {
