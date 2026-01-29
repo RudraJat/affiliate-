@@ -22,7 +22,10 @@ function App() {
       });
       updateUserDetails(response.data.user);
     } catch (error) {
-      console.log(error);
+      // 401 is expected when user is not logged in - no need to log
+      if (error.response?.status !== 401) {
+        console.log('Error checking login status:', error);
+      }
     }
   };
 
