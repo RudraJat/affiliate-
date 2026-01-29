@@ -70,7 +70,7 @@ function Login({ updateUserDetails }) {
   const handleGoogleSuccess = async (authResponse) => {
     try {
       const response = await axios.post(
-        "http://localhost:5001/auth/google-auth",
+        "http://localhost:5001/auth/google-login",
         { idToken: authResponse.credential }, // it'll send google JWT back to frontend
         { withCredentials: true }, //it will allow cookies to be sent and recieved(Without this cookies won't be saved on browser)
       );
@@ -121,7 +121,7 @@ function Login({ updateUserDetails }) {
         {/* adding google sso button(sign in with google) */}
         <h2>OR</h2>
         {/* This will provide google login button manually we don't have to add on something on our own */}
-        <GoogleOAuthProvider clientId={Process.env.React_APP_GOOGLE_CLIENT_ID}>
+        <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
             <GoogleLogin onSuccess={handleGoogleSuccess} onError={handleGoogleError}/>
         </GoogleOAuthProvider>
       </form>
